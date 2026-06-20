@@ -1183,22 +1183,35 @@
 
     .modal {
       background: var(--white);
-      max-width: 860px;
+      max-width: 980px;
       width: 100%;
-      max-height: 90vh;
+      max-height: 92vh;
       overflow-y: auto;
       position: relative;
       border-radius: 12px;
       border: 4px solid var(--black);
       box-shadow: 10px 10px 0 var(--black);
+      animation: modalIn .35s ease
+    }
+
+    @keyframes modalIn {
+      from {
+        opacity: 0;
+        transform: translateY(24px) scale(.97)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1)
+      }
     }
 
     .modal-close {
       position: absolute;
       top: 1rem;
       right: 1rem;
-      background: none;
-      border: none;
+      background: var(--white);
+      border: 2px solid var(--black);
       font-size: 1.8rem;
       cursor: pointer;
       z-index: 10;
@@ -1207,32 +1220,116 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--text-light);
-      transition: color .3s
+      color: var(--text);
+      transition: all .3s;
+      border-radius: 10px;
+      box-shadow: 3px 3px 0 var(--black)
     }
 
     .modal-close:hover {
-      color: var(--orange-primary)
+      color: var(--orange-primary);
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0 var(--black)
     }
 
     .modal-body {
       display: grid;
-      grid-template-columns: 1fr 1fr
+      grid-template-columns: 1fr 1fr;
+      gap: 0
+    }
+
+    .modal-gallery-col {
+      padding: 1.5rem;
+      background: var(--light-bg);
+      border-right: 3px solid var(--black)
     }
 
     .modal-gallery {
       aspect-ratio: 1;
-      background: var(--light-bg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 8rem;
+      background: var(--white);
       position: relative;
-      border-radius: 16px
+      border-radius: 12px;
+      overflow: hidden;
+      border: 3px solid var(--black);
+      box-shadow: 6px 6px 0 var(--black)
+    }
+
+    .modal-gallery img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .5s ease
+    }
+
+    .modal-gallery:hover img {
+      transform: scale(1.04)
+    }
+
+    .modal-img-badge {
+      position: absolute;
+      top: .75rem;
+      left: .75rem;
+      background: var(--orange-primary);
+      color: var(--white);
+      font-size: .6rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: .35rem .7rem;
+      border-radius: 6px;
+      border: 2px solid var(--black)
+    }
+
+    .modal-img-badge.hot {
+      background: var(--red-accent)
+    }
+
+    .modal-thumbs {
+      display: flex;
+      gap: .5rem;
+      margin-top: .75rem;
+      overflow-x: auto;
+      padding-bottom: .25rem
+    }
+
+    .modal-thumb {
+      flex: 0 0 72px;
+      width: 72px;
+      height: 72px;
+      border: 2px solid var(--light-bg);
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: pointer;
+      background: var(--white);
+      padding: 0;
+      transition: all .25s
+    }
+
+    .modal-thumb.active,
+    .modal-thumb:hover {
+      border-color: var(--orange-primary);
+      box-shadow: 0 0 0 2px rgba(255, 107, 53, .25)
+    }
+
+    .modal-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover
     }
 
     .modal-info {
-      padding: 2.5rem
+      padding: 2rem 2.25rem 2.5rem;
+      display: flex;
+      flex-direction: column
+    }
+
+    .modal-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: .5rem;
+      flex-wrap: wrap
     }
 
     .modal-cat {
@@ -1240,34 +1337,123 @@
       letter-spacing: .2em;
       text-transform: uppercase;
       color: var(--orange-primary);
-      margin-bottom: .5rem;
       font-weight: 700
+    }
+
+    .modal-rating {
+      display: flex;
+      align-items: center;
+      gap: .35rem;
+      font-size: .72rem;
+      color: var(--text-light);
+      font-weight: 600
+    }
+
+    .modal-stars {
+      color: #F5A623;
+      letter-spacing: .05em
     }
 
     .modal-name {
       font-family: var(--sans);
-      font-size: 2rem;
+      font-size: clamp(1.4rem, 3vw, 1.85rem);
       font-weight: 900;
-      margin-bottom: .5rem;
+      margin-bottom: .75rem;
       line-height: 1.2;
       color: var(--black);
-      text-transform: uppercase;
+      text-transform: uppercase
+    }
+
+    .modal-price-row {
+      display: flex;
+      align-items: baseline;
+      gap: .65rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem
     }
 
     .modal-price {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: 700;
       color: var(--orange-primary);
-      margin-bottom: 1.5rem;
       letter-spacing: .05em
     }
 
-    .modal-desc {
-      font-size: .8rem;
+    .modal-mrp {
+      font-size: .95rem;
       color: var(--text-light);
-      line-height: 1.8;
-      letter-spacing: .03em;
-      margin-bottom: 1.5rem
+      text-decoration: line-through;
+      font-weight: 600
+    }
+
+    .modal-discount {
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      background: rgba(230, 57, 70, .1);
+      color: var(--red-accent);
+      padding: .25rem .55rem;
+      border-radius: 6px
+    }
+
+    .modal-desc {
+      font-size: .82rem;
+      color: var(--text-light);
+      line-height: 1.75;
+      letter-spacing: .02em;
+      margin-bottom: 1rem
+    }
+
+    .modal-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .45rem;
+      margin-bottom: 1.25rem
+    }
+
+    .modal-chip {
+      font-size: .62rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: .35rem .65rem;
+      background: var(--light-bg);
+      border: 2px solid var(--black);
+      border-radius: 999px;
+      color: var(--text)
+    }
+
+    .modal-specs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .5rem;
+      margin-bottom: 1.25rem;
+      padding: .85rem;
+      background: var(--light-bg);
+      border-radius: 10px;
+      border: 2px solid var(--black)
+    }
+
+    .modal-spec {
+      font-size: .72rem;
+      color: var(--text-light);
+      line-height: 1.4
+    }
+
+    .modal-spec strong {
+      display: block;
+      font-size: .62rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--black);
+      margin-bottom: .15rem
+    }
+
+    .modal-divider {
+      height: 2px;
+      background: var(--light-bg);
+      margin: .25rem 0 1.25rem
     }
 
     .modal-label {
@@ -1282,13 +1468,14 @@
     .size-grid {
       display: flex;
       gap: .5rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.25rem;
       flex-wrap: wrap
     }
 
     .size-btn {
-      width: 48px;
+      min-width: 48px;
       height: 48px;
+      padding: 0 .65rem;
       border: 2px solid var(--orange-primary);
       background: none;
       font-size: .75rem;
@@ -1309,11 +1496,18 @@
       border-color: var(--orange-primary)
     }
 
-    .qty-wrap {
+    .modal-purchase-row {
       display: flex;
       align-items: center;
       gap: 1rem;
-      margin-bottom: 2rem
+      margin-bottom: 1rem;
+      flex-wrap: wrap
+    }
+
+    .qty-wrap {
+      display: flex;
+      align-items: center;
+      gap: .75rem
     }
 
     .qty-btn {
@@ -1344,12 +1538,34 @@
       text-align: center
     }
 
+    .modal-subtotal {
+      flex: 1;
+      text-align: right;
+      min-width: 120px
+    }
+
+    .modal-subtotal-label {
+      display: block;
+      font-size: .6rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      font-weight: 700;
+      margin-bottom: .15rem
+    }
+
+    .modal-subtotal-val {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--black)
+    }
+
     .modal-wa-btn {
       width: 100%;
-      padding: 1.2rem;
+      padding: 1.15rem;
       background: var(--orange-primary);
       color: var(--white);
-      border: none;
+      border: 3px solid var(--black);
       font-size: .75rem;
       font-weight: 700;
       letter-spacing: .15em;
@@ -1360,22 +1576,168 @@
       align-items: center;
       justify-content: center;
       gap: .6rem;
-      border-radius: 12px
+      border-radius: 12px;
+      box-shadow: 4px 4px 0 var(--black);
+      margin-bottom: 1rem
     }
 
     .modal-wa-btn:hover {
       background: var(--orange-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(255, 107, 53, .3)
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--black)
     }
 
-    @media(max-width:600px) {
+    .modal-trust {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: .5rem;
+      margin-bottom: 1.25rem
+    }
+
+    .modal-trust-item {
+      text-align: center;
+      font-size: .58rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      padding: .55rem .25rem;
+      background: var(--light-bg);
+      border-radius: 8px;
+      line-height: 1.35
+    }
+
+    .modal-accordions {
+      border-top: 2px solid var(--light-bg);
+      margin-top: auto
+    }
+
+    .modal-accordion {
+      border-bottom: 2px solid var(--light-bg)
+    }
+
+    .modal-accordion summary {
+      list-style: none;
+      cursor: pointer;
+      padding: .85rem 0;
+      font-size: .68rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--black);
+      display: flex;
+      align-items: center;
+      justify-content: space-between
+    }
+
+    .modal-accordion summary::-webkit-details-marker {
+      display: none
+    }
+
+    .modal-accordion summary::after {
+      content: '+';
+      font-size: 1rem;
+      color: var(--orange-primary);
+      transition: transform .25s
+    }
+
+    .modal-accordion[open] summary::after {
+      transform: rotate(45deg)
+    }
+
+    .modal-accordion-body {
+      font-size: .78rem;
+      color: var(--text-light);
+      line-height: 1.7;
+      padding-bottom: .85rem
+    }
+
+    .modal-related {
+      padding: 1.5rem 2rem 2rem;
+      border-top: 3px solid var(--black);
+      background: var(--light-bg)
+    }
+
+    .modal-related-title {
+      font-size: .7rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: var(--black)
+    }
+
+    .modal-related-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: .75rem
+    }
+
+    .modal-related-card {
+      background: var(--white);
+      border: 2px solid var(--black);
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all .25s;
+      box-shadow: 3px 3px 0 var(--black)
+    }
+
+    .modal-related-card:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0 var(--black)
+    }
+
+    .modal-related-card img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover
+    }
+
+    .modal-related-info {
+      padding: .55rem .65rem .7rem
+    }
+
+    .modal-related-name {
+      font-size: .62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 1.3;
+      margin-bottom: .2rem;
+      color: var(--black)
+    }
+
+    .modal-related-price {
+      font-size: .72rem;
+      font-weight: 700;
+      color: var(--orange-primary)
+    }
+
+    @media(max-width:768px) {
       .modal-body {
         grid-template-columns: 1fr
       }
 
-      .modal-gallery {
-        display: none
+      .modal-gallery-col {
+        border-right: none;
+        border-bottom: 3px solid var(--black);
+        padding: 1rem
+      }
+
+      .modal-info {
+        padding: 1.5rem
+      }
+
+      .modal-related-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .modal-trust {
+        grid-template-columns: 1fr
+      }
+
+      .modal-specs {
+        grid-template-columns: 1fr
       }
     }
 
@@ -1791,12 +2153,12 @@
       <h2 class="section-title">@b2b2boys</h2>
       <p class="section-sub">Daily style inspo and exclusive drops—follow for early access</p>
       <div class="insta-grid">
-        <div class="insta-item"><img src="https://images.pexels.com/photos/3622613/pexels-photo-3622613.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Insta 1"></div>
-        <div class="insta-item"><img src="https://images.pexels.com/photos/3622614/pexels-photo-3622614.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Insta 2"></div>
-        <div class="insta-item"><img src="https://images.pexels.com/photos/437037/pexels-photo-437037.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Insta 3"></div>
-        <div class="insta-item"><img src="https://images.pexels.com/photos/3945683/pexels-photo-3945683.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Insta 4"></div>
-        <div class="insta-item"><img src="https://images.pexels.com/photos/2889987/pexels-photo-2889987.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Insta 5"></div>
-        <div class="insta-item"><img src="https://images.pexels.com/photos/3622619/pexels-photo-3622619.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Insta 6"></div>
+        <div class="insta-item"><img src="https://plus.unsplash.com/premium_photo-1708633113019-fc2802a92b23?w=600&q=80&auto=format&fit=crop" alt="Men's street style outfit"></div>
+        <div class="insta-item"><img src="https://plus.unsplash.com/premium_photo-1688497831040-753ea826d174?w=600&q=80&auto=format&fit=crop" alt="Menswear collection"></div>
+        <div class="insta-item"><img src="https://plus.unsplash.com/premium_photo-1661340858583-420d6af0e476?w=600&q=80&auto=format&fit=crop" alt="Men's accessories"></div>
+        <div class="insta-item"><img src="https://plus.unsplash.com/premium_photo-1770710439786-1f36392725a5?w=600&q=80&auto=format&fit=crop" alt="Men's jacket style"></div>
+        <div class="insta-item"><img src="https://plus.unsplash.com/premium_photo-1770404514098-5bfd7e3555e4?w=600&q=80&auto=format&fit=crop" alt="Men's denim fashion"></div>
+        <div class="insta-item"><img src="https://images.unsplash.com/photo-1631286964587-d0f26936b263?w=600&q=80&auto=format&fit=crop" alt="Men's watch fashion"></div>
       </div>
     </section>
 
@@ -1849,7 +2211,7 @@
     </div>
     <section style="padding:6rem 5%">
       <div class="about-grid">
-        <img src="https://images.pexels.com/photos/3623872/pexels-photo-3623872.jpeg?auto=compress&cs=tinysrgb&w=400"
+        <img src="https://plus.unsplash.com/premium_photo-1664202526559-e21e9c0fb46a?w=400&q=80&auto=format&fit=crop"
           alt="B2B2 Boys Story" class="about-img" />
         <div class="about-content">
           <p
@@ -2075,35 +2437,66 @@
     </svg></a>
 
   <!-- PRODUCT MODAL -->
-  <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
-    <div class="modal" id="productModal">
-      <button class="modal-close" onclick="closeModal()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="productModal" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal()" aria-label="Close product details"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
           viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
           stroke-linejoin="round">
           <line x1="18" y1="6" x2="6" y2="18" />
           <line x1="6" y1="6" x2="18" y2="18" />
         </svg></button>
       <div class="modal-body">
-        <div class="modal-gallery" id="modalGallery"></div>
+        <div class="modal-gallery-col">
+          <div class="modal-gallery" id="modalGallery"></div>
+          <div class="modal-thumbs" id="modalThumbs"></div>
+        </div>
         <div class="modal-info">
-          <p class="modal-cat" id="modalCat"></p>
+          <div class="modal-top-row">
+            <p class="modal-cat" id="modalCat"></p>
+            <div class="modal-rating" id="modalRating"></div>
+          </div>
           <h2 class="modal-name" id="modalName"></h2>
-          <p class="modal-price" id="modalPrice"></p>
+          <div class="modal-price-row">
+            <p class="modal-price" id="modalPrice"></p>
+            <p class="modal-mrp" id="modalMrp"></p>
+            <span class="modal-discount" id="modalDiscount"></span>
+          </div>
           <p class="modal-desc" id="modalDesc"></p>
+          <div class="modal-highlights" id="modalHighlights"></div>
+          <div class="modal-specs" id="modalSpecs"></div>
+          <div class="modal-divider"></div>
           <p class="modal-label">Pick Your Size</p>
           <div class="size-grid" id="sizeGrid"></div>
-          <p class="modal-label">How Many?</p>
-          <div class="qty-wrap">
-            <button class="qty-btn" onclick="changeQty(-1)">−</button>
-            <span class="qty-val" id="qtyVal">1</span>
-            <button class="qty-btn" onclick="changeQty(1)">+</button>
+          <div class="modal-purchase-row">
+            <div>
+              <p class="modal-label" style="margin-bottom:.5rem">How Many?</p>
+              <div class="qty-wrap">
+                <button class="qty-btn" onclick="changeQty(-1)" aria-label="Decrease quantity">−</button>
+                <span class="qty-val" id="qtyVal">1</span>
+                <button class="qty-btn" onclick="changeQty(1)" aria-label="Increase quantity">+</button>
+              </div>
+            </div>
+            <div class="modal-subtotal">
+              <span class="modal-subtotal-label">Subtotal</span>
+              <span class="modal-subtotal-val" id="modalSubtotal">₹0</span>
+            </div>
           </div>
           <button class="modal-wa-btn" onclick="orderOnWhatsApp()"><svg xmlns="http://www.w3.org/2000/svg" width="16"
               height="16" viewBox="0 0 24 24" fill="currentColor">
               <path fill-rule="evenodd" clip-rule="evenodd"
                 d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.413-2.393-1.476-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421-7.403h-.004c-1.425 0-2.835.356-4.07 1.031L3.064 3.51l1.148 3.383c-.749 1.348-1.147 2.81-1.147 4.359 0 4.465 3.555 8.097 7.935 8.097 2.137 0 4.131-.784 5.615-2.176 1.484-1.392 2.302-3.28 2.302-5.258 0-4.465-3.555-8.097-7.935-8.097" />
             </svg>Order on WhatsApp</button>
+          <div class="modal-trust">
+            <div class="modal-trust-item">Express Delivery<br>2–4 Days</div>
+            <div class="modal-trust-item">7-Day<br>Easy Returns</div>
+            <div class="modal-trust-item">100% Authentic<br>Quality Checked</div>
+          </div>
+          <div class="modal-accordions" id="modalAccordions"></div>
         </div>
+      </div>
+      <div class="modal-related">
+        <h3 class="modal-related-title">You Might Also Like</h3>
+        <div class="modal-related-grid" id="modalRelated"></div>
       </div>
     </div>
   </div>
@@ -2129,24 +2522,24 @@
     ];
 
     const products = [
-      { id: 1, name: 'Premium Cotton Shirt', price: 1199, category: 'Shirts', sizes: ['S', 'M', 'L', 'XL', 'XXL'], image: 'https://images.pexels.com/photos/3622613/pexels-photo-3622613.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Breathable cotton shirt perfect for everyday wear. Crisp, clean, and ready to make an impression.', badge: 'New', bestseller: false, newest: true },
-      { id: 2, name: 'Slim Fit Trousers', price: 1699, category: 'Jeans', sizes: ['28', '30', '32', '34', '36'], image: 'https://images.pexels.com/photos/3622614/pexels-photo-3622614.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Sleek trousers with a modern tapered fit. Office-ready and weekend-approved.', badge: '', bestseller: true, newest: false },
-      { id: 3, name: 'Steel Chronograph Watch', price: 3999, category: 'Watches', sizes: ['Free'], image: 'https://images.pexels.com/photos/437037/pexels-photo-437037.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Precision-crafted chronograph with leather strap. Elevate your wrist game.', badge: 'Premium', bestseller: true, newest: false },
-      { id: 4, name: 'Classic Polo Tee', price: 749, category: 'T-Shirts', sizes: ['S', 'M', 'L', 'XL', 'XXL'], image: 'https://images.pexels.com/photos/3945683/pexels-photo-3945683.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Timeless polo in premium piqué. Versatile enough for any vibe.', badge: '', bestseller: false, newest: true },
-      { id: 5, name: 'Leather Signature Belt', price: 649, category: 'Belts', sizes: ['28', '30', '32', '34', '36'], image: 'https://images.pexels.com/photos/3622615/pexels-photo-3622615.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Full-grain leather with oxidised buckle. The finishing touch to every fit.', badge: '', bestseller: true, newest: false },
-      { id: 6, name: 'Dark Wash Denim', price: 1399, category: 'Jeans', sizes: ['28', '30', '32', '34', '36'], image: 'https://images.pexels.com/photos/2889987/pexels-photo-2889987.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Premium selvedge denim that breaks in beautifully. Built to last.', badge: 'Hot', bestseller: false, newest: true },
-      { id: 7, name: 'Polarised Aviators', price: 1099, category: 'Sunglasses', sizes: ['Free'], image: 'https://images.pexels.com/photos/3622611/pexels-photo-3622611.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Classic aviator frames with polarised lenses. Style and substance.', badge: 'Premium', bestseller: true, newest: false },
-      { id: 8, name: 'Minimalist Bifold Wallet', price: 549, category: 'Wallets', sizes: ['Free'], image: 'https://images.pexels.com/photos/3622607/pexels-photo-3622607.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Slim leather wallet with RFID protection. Keep it minimal, keep it real.', badge: '', bestseller: false, newest: true },
-      { id: 9, name: 'Wool Blazer', price: 2999, category: 'Jackets', sizes: ['S', 'M', 'L', 'XL'], image: 'https://images.pexels.com/photos/3622619/pexels-photo-3622619.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Sharp wool blazer for the modern professional. Level up instantly.', badge: 'Premium', bestseller: true, newest: true },
-      { id: 10, name: 'Comfort Hoodie', price: 999, category: 'Hoodies', sizes: ['S', 'M', 'L', 'XL', 'XXL'], image: 'https://images.pexels.com/photos/3622617/pexels-photo-3622617.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Soft french terry hoodie for ultimate comfort. Your new favorite piece.', badge: '', bestseller: false, newest: true },
-      { id: 11, name: 'Oud Cologne 50ml', price: 2199, category: 'Perfumes', sizes: ['Free'], image: 'https://images.pexels.com/photos/3622612/pexels-photo-3622612.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Signature woody fragrance that lasts all day. Make a statement.', badge: 'Premium', bestseller: true, newest: false },
-      { id: 12, name: 'Leather Bracelet', price: 399, category: 'Accessories', sizes: ['Free'], image: 'https://images.pexels.com/photos/3622610/pexels-photo-3622610.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Sleek braided leather with silver clasp. Subtle and stylish.', badge: '', bestseller: false, newest: true },
-      { id: 13, name: 'Canvas Weekender', price: 2499, category: 'Accessories', sizes: ['Free'], image: 'https://images.pexels.com/photos/3622609/pexels-photo-3622609.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Waxed canvas bag built for adventure. Go anywhere, look good.', badge: 'New', bestseller: false, newest: true },
-      { id: 14, name: 'Graphic Print Tee', price: 599, category: 'T-Shirts', sizes: ['S', 'M', 'L', 'XL', 'XXL'], image: 'https://images.pexels.com/photos/3622621/pexels-photo-3622621.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Bold graphic on premium cotton. Express yourself loud and proud.', badge: '', bestseller: true, newest: false },
-      { id: 15, name: 'Wool Overcoat', price: 4999, category: 'Jackets', sizes: ['S', 'M', 'L', 'XL'], image: 'https://images.pexels.com/photos/3622623/pexels-photo-3622623.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Heavyweight wool coat for serious style. The investment piece.', badge: 'Premium', bestseller: true, newest: true },
-      { id: 16, name: 'Gold Chain Necklace', price: 799, category: 'Accessories', sizes: ['Free'], image: 'https://images.pexels.com/photos/3622608/pexels-photo-3622608.jpeg?auto=compress&cs=tinysrgb&w=600', description: '18K gold-plated flat chain. Simple, clean, effective.', badge: '', bestseller: false, newest: true },
-      { id: 17, name: 'Structured Baseball Cap', price: 499, category: 'Caps', sizes: ['Free'], image: 'https://images.pexels.com/photos/3622605/pexels-photo-3622605.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Heavy-duty cotton cap with attitude. Casual perfection.', badge: '', bestseller: true, newest: false },
-      { id: 18, name: 'Linen Summer Shirt', price: 1299, category: 'Shirts', sizes: ['S', 'M', 'L', 'XL', 'XXL'], image: 'https://images.pexels.com/photos/3622625/pexels-photo-3622625.jpeg?auto=compress&cs=tinysrgb&w=600', description: 'Lightweight linen for hot days. Cool, collected, fresh.', badge: 'New', bestseller: false, newest: true },
+      { id: 1, name: 'Premium Cotton Shirt', price: 1199, category: 'Shirts', sizes: ['S', 'M', 'L', 'XL', 'XXL'], image: 'https://plus.unsplash.com/premium_photo-1770559219712-62e72f1ea88d?w=600&q=80&auto=format&fit=crop', description: 'Breathable cotton shirt perfect for everyday wear. Crisp, clean, and ready to make an impression.', badge: 'New', bestseller: false, newest: true },
+      { id: 2, name: 'Slim Fit Trousers', price: 1699, category: 'Jeans', sizes: ['28', '30', '32', '34', '36'], image: 'https://plus.unsplash.com/premium_photo-1770512677042-c127be4555a0?w=600&q=80&auto=format&fit=crop', description: 'Sleek trousers with a modern tapered fit. Office-ready and weekend-approved.', badge: '', bestseller: true, newest: false },
+      { id: 3, name: 'Steel Chronograph Watch', price: 3999, category: 'Watches', sizes: ['Free'], image: 'https://images.unsplash.com/photo-1549972574-8e3e1ed6a347?w=600&q=80&auto=format&fit=crop', description: 'Precision-crafted chronograph with leather strap. Elevate your wrist game.', badge: 'Premium', bestseller: true, newest: false },
+      { id: 4, name: 'Classic Polo Tee', price: 749, category: 'T-Shirts', sizes: ['S', 'M', 'L', 'XL', 'XXL'], image: 'https://images.unsplash.com/photo-1717127354833-e4d10625d3e7?w=600&q=80&auto=format&fit=crop', description: 'Timeless polo in premium piqué. Versatile enough for any vibe.', badge: '', bestseller: false, newest: true },
+      { id: 5, name: 'Leather Signature Belt', price: 649, category: 'Belts', sizes: ['28', '30', '32', '34', '36'], image: 'https://plus.unsplash.com/premium_photo-1670963025497-d6d582ea9319?w=600&q=80&auto=format&fit=crop', description: 'Full-grain leather with oxidised buckle. The finishing touch to every fit.', badge: '', bestseller: true, newest: false },
+      { id: 6, name: 'Dark Wash Denim', price: 1399, category: 'Jeans', sizes: ['28', '30', '32', '34', '36'], image: 'https://plus.unsplash.com/premium_photo-1770382912779-0c0ed726d198?w=600&q=80&auto=format&fit=crop', description: 'Premium selvedge denim that breaks in beautifully. Built to last.', badge: 'Hot', bestseller: false, newest: true },
+      { id: 7, name: 'Polarised Aviators', price: 1099, category: 'Sunglasses', sizes: ['Free'], image: 'https://plus.unsplash.com/premium_photo-1770516218694-a41ba4d1770e?w=600&q=80&auto=format&fit=crop', description: 'Classic aviator frames with polarised lenses. Style and substance.', badge: 'Premium', bestseller: true, newest: false },
+      { id: 8, name: 'Minimalist Bifold Wallet', price: 549, category: 'Wallets', sizes: ['Free'], image: 'https://plus.unsplash.com/premium_photo-1670984076180-22a6c8f27f2b?w=600&q=80&auto=format&fit=crop', description: 'Slim leather wallet with RFID protection. Keep it minimal, keep it real.', badge: '', bestseller: false, newest: true },
+      { id: 9, name: 'Wool Blazer', price: 2999, category: 'Jackets', sizes: ['S', 'M', 'L', 'XL'], image: 'https://plus.unsplash.com/premium_photo-1770512681220-0caafb1fd634?w=600&q=80&auto=format&fit=crop', description: 'Sharp wool blazer for the modern professional. Level up instantly.', badge: 'Premium', bestseller: true, newest: true },
+      { id: 10, name: 'Comfort Hoodie', price: 999, category: 'Hoodies', sizes: ['S', 'M', 'L', 'XL', 'XXL'], image: 'https://plus.unsplash.com/premium_photo-1739786996060-2769f1ded135?w=600&q=80&auto=format&fit=crop', description: 'Soft french terry hoodie for ultimate comfort. Your new favorite piece.', badge: '', bestseller: false, newest: true },
+      { id: 11, name: 'Oud Cologne 50ml', price: 2199, category: 'Perfumes', sizes: ['Free'], image: 'https://images.unsplash.com/photo-1775639698868-3b154c49df87?w=600&q=80&auto=format&fit=crop', description: 'Signature woody fragrance that lasts all day. Make a statement.', badge: 'Premium', bestseller: true, newest: false },
+      { id: 12, name: 'Leather Bracelet', price: 399, category: 'Accessories', sizes: ['Free'], image: 'https://plus.unsplash.com/premium_photo-1723557615625-be5b678f22d3?w=600&q=80&auto=format&fit=crop', description: 'Sleek braided leather with silver clasp. Subtle and stylish.', badge: '', bestseller: false, newest: true },
+      { id: 13, name: 'Canvas Weekender', price: 2499, category: 'Accessories', sizes: ['Free'], image: 'https://images.unsplash.com/photo-1546938576-04917ec516ee?w=600&q=80&auto=format&fit=crop', description: 'Waxed canvas bag built for adventure. Go anywhere, look good.', badge: 'New', bestseller: false, newest: true },
+      { id: 14, name: 'Graphic Print Tee', price: 599, category: 'T-Shirts', sizes: ['S', 'M', 'L', 'XL', 'XXL'], image: 'https://plus.unsplash.com/premium_photo-1698514483424-85010f988b72?w=600&q=80&auto=format&fit=crop', description: 'Bold graphic on premium cotton. Express yourself loud and proud.', badge: '', bestseller: true, newest: false },
+      { id: 15, name: 'Wool Overcoat', price: 4999, category: 'Jackets', sizes: ['S', 'M', 'L', 'XL'], image: 'https://images.unsplash.com/photo-1630243838106-c48c85c5e880?w=600&q=80&auto=format&fit=crop', description: 'Heavyweight wool coat for serious style. The investment piece.', badge: 'Premium', bestseller: true, newest: true },
+      { id: 16, name: 'Gold Chain Necklace', price: 799, category: 'Accessories', sizes: ['Free'], image: 'https://plus.unsplash.com/premium_photo-1753039835202-9d024eec37b9?w=600&q=80&auto=format&fit=crop', description: '18K gold-plated flat chain. Simple, clean, effective.', badge: '', bestseller: false, newest: true },
+      { id: 17, name: 'Structured Baseball Cap', price: 499, category: 'Caps', sizes: ['Free'], image: 'https://plus.unsplash.com/premium_photo-1770292919683-6981d465f6ba?w=600&q=80&auto=format&fit=crop', description: 'Heavy-duty cotton cap with attitude. Casual perfection.', badge: '', bestseller: true, newest: false },
+      { id: 18, name: 'Linen Summer Shirt', price: 1299, category: 'Shirts', sizes: ['S', 'M', 'L', 'XL', 'XXL'], image: 'https://plus.unsplash.com/premium_photo-1723928431967-955578e5039a?w=600&q=80&auto=format&fit=crop', description: 'Lightweight linen for hot days. Cool, collected, fresh.', badge: 'New', bestseller: false, newest: true },
     ];
 
     const reviews = [
@@ -2172,6 +2565,49 @@
     let currentSize = null;
     let currentQty = 1;
     let activeFilter = 'All';
+
+    const categoryMeta = {
+      'Shirts': { material: 'Premium Cotton', fit: 'Regular Fit', care: 'Machine wash cold, tumble dry low', highlights: ['Breathable fabric', 'Easy iron', 'All-day comfort'], sizeGuide: 'Chest (in): S 36–38, M 38–40, L 40–42, XL 42–44, XXL 44–46. Fits true to size.' },
+      'T-Shirts': { material: '180 GSM Cotton', fit: 'Relaxed Fit', care: 'Machine wash cold, do not bleach', highlights: ['Soft hand-feel', 'Fade-resistant', 'Everyday essential'], sizeGuide: 'Chest (in): S 36–38, M 38–40, L 40–42, XL 42–44, XXL 44–46. Relaxed fit — size down for slim.' },
+      'Jeans': { material: 'Stretch Denim', fit: 'Slim Tapered', care: 'Wash inside out, cold cycle', highlights: ['4-way stretch', 'Deep indigo wash', 'Built to last'], sizeGuide: 'Waist sizes in inches. Size 32 = 32" waist. Slim through hip and thigh with tapered leg.' },
+      'Jackets': { material: 'Wool Blend', fit: 'Tailored Fit', care: 'Dry clean recommended', highlights: ['Structured shoulders', 'Premium lining', 'Statement piece'], sizeGuide: 'Chest (in): S 36–38, M 38–40, L 40–42, XL 42–44. Layer-friendly fit.' },
+      'Hoodies': { material: 'French Terry', fit: 'Oversized Fit', care: 'Machine wash cold, air dry', highlights: ['Ultra-soft interior', 'Kangaroo pocket', 'Weekend-ready'], sizeGuide: 'Chest (in): S 38–40, M 40–42, L 42–44, XL 44–46, XXL 46–48. Relaxed streetwear fit.' },
+      'Watches': { material: 'Stainless Steel', fit: 'One Size', care: 'Wipe with soft cloth, avoid water', highlights: ['Quartz movement', 'Mineral glass', '2-year warranty'], sizeGuide: 'Standard 42mm case. Adjustable strap fits 6.5"–8.5" wrists.' },
+      'Belts': { material: 'Full-Grain Leather', fit: 'Adjustable', care: 'Leather conditioner every 3 months', highlights: ['Oxidised buckle', 'Ages beautifully', 'Gift-ready box'], sizeGuide: 'Belt size = pant waist + 2. Size 32 belt fits 30" waist pants.' },
+      'Wallets': { material: 'Genuine Leather', fit: 'One Size', care: 'Keep dry, use leather balm', highlights: ['RFID blocking', '6 card slots', 'Slim profile'], sizeGuide: 'Fits standard cards and folded notes. Pocket-friendly dimensions.' },
+      'Sunglasses': { material: 'Metal Frame', fit: 'One Size', care: 'Store in case, clean with microfiber', highlights: ['UV400 protection', 'Polarised lenses', 'Lightweight frame'], sizeGuide: 'Universal fit. Aviator style suits most face shapes.' },
+      'Caps': { material: 'Heavy Cotton Twill', fit: 'Adjustable Strap', care: 'Spot clean only', highlights: ['Structured crown', 'Curved brim', 'Embroidered logo'], sizeGuide: 'Adjustable back strap fits most head sizes (54–60 cm).' },
+      'Perfumes': { material: 'Eau de Parfum', fit: '50ml Bottle', care: 'Store away from direct sunlight', highlights: ['8+ hour longevity', 'Woody oud notes', 'Travel-friendly'], sizeGuide: '50ml bottle — approx. 500 sprays. Ideal for daily wear.' },
+      'Accessories': { material: 'Premium Materials', fit: 'One Size', care: 'See product label', highlights: ['Hand-finished', 'Versatile styling', 'Gift-ready'], sizeGuide: 'One size fits most. Contact us on WhatsApp for specific measurements.' }
+    };
+
+    function getProductMeta(p) {
+      return categoryMeta[p.category] || categoryMeta['Accessories'];
+    }
+
+    function getProductImages(p) {
+      const related = products.filter(x => x.category === p.category && x.id !== p.id).slice(0, 2);
+      return [p.image, ...related.map(r => r.image)];
+    }
+
+    function getProductRating(p) {
+      const rating = (4.5 + (p.id % 5) * 0.1).toFixed(1);
+      const reviews = 28 + p.id * 11;
+      return { rating, reviews };
+    }
+
+    function getMrp(price) {
+      return Math.round(price * 1.25 / 50) * 50;
+    }
+
+    function formatPrice(n) {
+      return `₹${n.toLocaleString('en-IN')}`;
+    }
+
+    function renderStars(rating) {
+      const rounded = Math.min(5, Math.round(rating));
+      return '★'.repeat(rounded) + '☆'.repeat(5 - rounded);
+    }
 
     // ========== RENDER FUNCTIONS ==========
     function renderCategories() {
@@ -2353,26 +2789,90 @@
       currentProduct = p;
       currentSize = p.sizes[0];
       currentQty = 1;
-      document.getElementById('modalGallery').innerHTML = `<img src="${p.image}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;border-radius:12px;"/>`;
+
+      const meta = getProductMeta(p);
+      const images = getProductImages(p);
+      const { rating, reviews } = getProductRating(p);
+      const mrp = getMrp(p.price);
+      const discount = Math.round((1 - p.price / mrp) * 100);
+
+      document.getElementById('modalGallery').innerHTML = `
+        <img src="${images[0]}" alt="${p.name}" id="modalMainImg"/>
+        ${p.badge ? `<span class="modal-img-badge ${p.badge === 'Premium' || p.badge === 'Hot' ? 'hot' : ''}">${p.badge}</span>` : ''}`;
+
+      document.getElementById('modalThumbs').innerHTML = images.map((img, i) => `
+        <button type="button" class="modal-thumb ${i === 0 ? 'active' : ''}" onclick="selectModalImage('${img}', this)" aria-label="View image ${i + 1}">
+          <img src="${img}" alt="${p.name} view ${i + 1}"/>
+        </button>`).join('');
+
       document.getElementById('modalCat').textContent = p.category;
+      document.getElementById('modalRating').innerHTML = `<span class="modal-stars">${renderStars(parseFloat(rating))}</span> ${rating} (${reviews} reviews)`;
       document.getElementById('modalName').textContent = p.name;
-      document.getElementById('modalPrice').textContent = `₹${p.price.toLocaleString('en-IN')}`;
+      document.getElementById('modalPrice').textContent = formatPrice(p.price);
+      document.getElementById('modalMrp').textContent = formatPrice(mrp);
+      document.getElementById('modalDiscount').textContent = `${discount}% off`;
       document.getElementById('modalDesc').textContent = p.description;
+      document.getElementById('modalHighlights').innerHTML = meta.highlights.map(h => `<span class="modal-chip">${h}</span>`).join('');
+      document.getElementById('modalSpecs').innerHTML = `
+        <div class="modal-spec"><strong>Material</strong>${meta.material}</div>
+        <div class="modal-spec"><strong>Fit</strong>${meta.fit}</div>
+        <div class="modal-spec"><strong>Care</strong>${meta.care}</div>
+        <div class="modal-spec"><strong>Availability</strong>In Stock — ships in 24 hrs</div>`;
+
       document.getElementById('qtyVal').textContent = 1;
-      const sg = document.getElementById('sizeGrid');
-      sg.innerHTML = p.sizes.map(s => `<button class="size-btn ${s === currentSize ? 'active' : ''}" onclick="selectSize('${s}',this)">${s}</button>`).join('');
+      document.getElementById('sizeGrid').innerHTML = p.sizes.map(s => `
+        <button type="button" class="size-btn ${s === currentSize ? 'active' : ''}" onclick="selectSize('${s}', this)">${s}</button>`).join('');
+
+      document.getElementById('modalAccordions').innerHTML = `
+        <details class="modal-accordion" open>
+          <summary>Product Details</summary>
+          <div class="modal-accordion-body">${p.description} Crafted for the modern man who values quality without compromise. Every B2B2 piece is inspected before dispatch.</div>
+        </details>
+        <details class="modal-accordion">
+          <summary>Size &amp; Fit Guide</summary>
+          <div class="modal-accordion-body">${meta.sizeGuide} Not sure? Message us on WhatsApp with your measurements — we'll help you pick the right size.</div>
+        </details>
+        <details class="modal-accordion">
+          <summary>Shipping &amp; Returns</summary>
+          <div class="modal-accordion-body">Express delivery across India in 2–4 business days. Free shipping on orders above ₹1,999. 7-day hassle-free returns — just reach out on WhatsApp to initiate.</div>
+        </details>`;
+
+      const related = products.filter(x => x.category === p.category && x.id !== p.id).slice(0, 4);
+      if (related.length < 4) {
+        related.push(...products.filter(x => x.id !== p.id && !related.includes(x)).slice(0, 4 - related.length));
+      }
+      document.getElementById('modalRelated').innerHTML = related.map(r => `
+        <div class="modal-related-card" onclick="openModal(${r.id})">
+          <img src="${r.image}" alt="${r.name}" loading="lazy"/>
+          <div class="modal-related-info">
+            <div class="modal-related-name">${r.name}</div>
+            <div class="modal-related-price">${formatPrice(r.price)}</div>
+          </div>
+        </div>`).join('');
+
+      updateModalSubtotal();
       document.getElementById('modalOverlay').classList.add('open');
       document.body.style.overflow = 'hidden';
+      document.getElementById('productModal').scrollTop = 0;
     }
 
-    function closeModal(e) {
-      if (e && e.target !== document.getElementById('modalOverlay') && !e.currentTarget.classList?.contains('modal-close')) return;
-      if (e && e.currentTarget && !e.currentTarget.classList?.contains('modal-close') && e.target.id !== 'modalOverlay') return;
+    function selectModalImage(src, btn) {
+      document.getElementById('modalMainImg').src = src;
+      document.querySelectorAll('.modal-thumb').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    function updateModalSubtotal() {
+      if (!currentProduct) return;
+      document.getElementById('modalSubtotal').textContent = formatPrice(currentProduct.price * currentQty);
+    }
+
+    function closeModal() {
       document.getElementById('modalOverlay').classList.remove('open');
       document.body.style.overflow = '';
     }
 
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') { document.getElementById('modalOverlay').classList.remove('open'); document.body.style.overflow = ''; } });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
     function selectSize(s, btn) {
       currentSize = s;
@@ -2381,12 +2881,14 @@
     }
 
     function changeQty(d) {
-      currentQty = Math.max(1, currentQty + d);
+      currentQty = Math.max(1, Math.min(10, currentQty + d));
       document.getElementById('qtyVal').textContent = currentQty;
+      updateModalSubtotal();
     }
 
     function buildWaLink(p, size, qty) {
-      const msg = `Hey B2B2,\n\nI want this:\n\n${p.name}\nCategory: ${p.category}\nSize: ${size}\nQty: ${qty}\nPrice: ₹${p.price.toLocaleString('en-IN')}\n\nFinal price with shipping?`;
+      const total = p.price * qty;
+      const msg = `Hey B2B2,\n\nI want this:\n\n${p.name}\nCategory: ${p.category}\nSize: ${size}\nQty: ${qty}\nUnit Price: ${formatPrice(p.price)}\nSubtotal: ${formatPrice(total)}\n\nFinal price with shipping?`;
       return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
     }
 
@@ -2427,11 +2929,8 @@
     });
 
     // Close modal when clicking overlay
-    document.getElementById('modalOverlay').addEventListener('click', function (e) {
-      if (e.target === this) {
-        this.classList.remove('open');
-        document.body.style.overflow = '';
-      }
+    document.getElementById('modalOverlay').addEventListener('click', function () {
+      closeModal();
     });
 
     // ========== INIT ==========
