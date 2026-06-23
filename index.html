@@ -2207,11 +2207,13 @@
       background: rgba(0, 0, 0, .45);
       z-index: 800;
       opacity: 0;
+      pointer-events: none;
       transition: opacity .3s ease
     }
 
     .filter-modal-overlay.open {
-      opacity: 1
+      opacity: 1;
+      pointer-events: auto
     }
 
     .filter-modal {
