@@ -2309,9 +2309,12 @@
 
       /* Product grid mobile */
       .products-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: .75rem;
-        margin-top: 1rem
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        margin-top: 1rem;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto
       }
 
       .prod-card {
@@ -2481,8 +2484,11 @@
 
     @media(max-width:380px) {
       .products-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: .5rem
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        max-width: 360px;
+        margin-left: auto;
+        margin-right: auto
       }
 
       .prod-name {
